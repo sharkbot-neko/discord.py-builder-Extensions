@@ -77,7 +77,12 @@ window.onload = function() {
     const os_command = generateBlocklyCategory('💻OSコマンド', '#b3b1da');
     if (os_command) {
         generateBlocklyBlcok(os_command, "osコマンドの実行", "oscommand_run");
-        generateBlocklyBlcok(os_command, "あとの動作をキャンセル", "cancel_return");
+    }
+
+    const exit_group = generateBlocklyCategory('🚪終了させる', '#000000');
+    if (exit_group) {
+        generateBlocklyBlcok(exit_group, "あとの動作をキャンセル", "cancel_return");
+        generateBlocklyBlcok(exit_group, "ループから抜け出す", "break_cancel");
     }
 
     generateBlocklySeparator();

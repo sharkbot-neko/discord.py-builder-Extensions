@@ -146,10 +146,11 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
     };
 
     window.Blockly.Python['oscommand_run'] = function(block) {
-        const code = `os.system(${Blockly.Python.valueToCode(block, 'COMMAND', Blockly.Python.ORDER_NONE)})`
+        const code = `os.system(${Blockly.Python.valueToCode(block, 'COMMAND', Blockly.Python.ORDER_NONE)})\n`
         return code
     };
 
+    // 終了させる
     window.Blockly.Blocks['cancel_return'] = {
         init: function() {
             this.appendDummyInput().appendField("あとの動作をキャンセル"); this.setColour(160);
@@ -158,7 +159,19 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
     };
 
     window.Blockly.Python['cancel_return'] = function(block) {
-        const code = `return`
+        const code = `return\n`
+        return code
+    };
+
+    window.Blockly.Blocks['break_cancel'] = {
+        init: function() {
+            this.appendDummyInput().appendField("ループから抜け出す"); this.setColour(160);
+            this.setPreviousStatement(true, null); this.setNextStatement(true, null);
+        }
+    };
+
+    window.Blockly.Python['break_cancel'] = function(block) {
+        const code = `break\n`
         return code
     };
 
