@@ -27,7 +27,8 @@ window.onload = function() {
 
     // 音楽など(VC)
     const music = generateBlocklyCategory('VC', '#ff0a0a');
-    generateBlocklyBlcok(music, "音楽を再生", "vc_play");
+    generateBlocklyBlcok(music, "mp3から音楽を再生", "vc_play");
+    generateBlocklyBlcok(music, "youtubeから音楽を再生", "vc_youtube");
     generateBlocklyBlcok(music, "音楽を停止", "vc_stop");
 
     // DMに送信

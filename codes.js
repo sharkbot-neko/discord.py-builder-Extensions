@@ -16,6 +16,41 @@ function addBlock() {
         return code;
     };
 
+    window.Blockly.Blocks['vc_youtube'] = {
+        init: function() {
+            this.appendDummyInput().appendField("音楽を再生"); this.setPreviousStatement(true, null); this.setNextStatement(true, null); this.setColour(160);
+            this.appendValueInput("YOUTUBE_URL").setCheck("String").appendField("YoutubeのURL");
+        }
+    };
+
+    window.Blockly.Python['vc_youtube'] = function(block) {
+        const code = `class YTDLSource(discord.PCMVolumeTransformer):
+    def __init__(self, source, *, data, volume=0.5):
+        super().__init__(source, volume)
+        self.data = data
+        self.title = data.get('title')
+        self.url = data.get('url')
+
+    @classmethod
+    async def from_url(cls, url, *, loop=None, stream=True):
+        loop = loop or asyncio.get_event_loop()
+        data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
+
+        if 'entries' in data:
+            data = data['entries'][0]
+
+        filename = data['url'] if stream else ytdl.prepare_filename(data)
+        
+        return cls(discord.FFmpegPCMAudio(filename, **FFMPEG_OPTIONS), data=data)
+voice_client = ctx.guild.voice_client
+if voice_client is None:
+    return
+player = await YTDLSource.from_url(${Blockly.Python.valueToCode(block, 'YOUTUBE_URL', Blockly.Python.ORDER_NONE)}, loop=bot.loop, stream=True)
+voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
+    `
+        return code;
+    };
+
     window.Blockly.Blocks['vc_stop'] = {
         init: function() {
             this.appendDummyInput().appendField("音楽を停止"); this.setPreviousStatement(true, null); this.setNextStatement(true, null); this.setColour(160);
