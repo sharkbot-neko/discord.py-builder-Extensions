@@ -18,7 +18,8 @@ function generateBlocklyBlcok(category, labelText, type) {
 window.onload = function() {
     const test = generateBlocklyCategory('テストなう', '#000000');
     generateBlocklyBlcok(test, "テストですねぇ", "test_now");
-    generateBlocklyBlcok(test, "音楽を再生", "vc_play");
+    const music = generateBlocklyCategory('VC', '#ff0a0a');
+    generateBlocklyBlcok(music, "音楽を再生", "vc_play");
 
     chrome.runtime.sendMessage({ action: "injectBlocklyBlock" });
 };
