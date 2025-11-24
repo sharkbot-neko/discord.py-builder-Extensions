@@ -102,6 +102,34 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
         return [code, Blockly.Python.ORDER_ATOMIC];;
     };
 
+    // Webリクエスト
+    window.Blockly.Blocks['get_request'] = {
+        init: function() {
+            this.appendDummyInput().appendField("Getリクエスト"); this.setColour(160);
+            this.appendValueInput("URL").setCheck("String").appendField("URL");
+            this.setOutput(true, 'String');
+        }
+    };
+
+    window.Blockly.Python['get_request'] = function(block) {
+        const code = `await (await commands.Bot().http.__session.request('GET', url=${Blockly.Python.valueToCode(block, 'URL', Blockly.Python.ORDER_NONE)}).text()`;
+        return [code, Blockly.Python.ORDER_ATOMIC];;
+    };
+
+    window.Blockly.Blocks['post_request'] = {
+        init: function() {
+            this.appendDummyInput().appendField("Postリクエスト"); this.setColour(160);
+            this.appendValueInput("URL").setCheck("String").appendField("URL");
+            this.appendValueInput("DATA").setCheck("String").appendField("DATA");
+            this.setOutput(true, 'String');
+        }
+    };
+
+    window.Blockly.Python['post_request'] = function(block) {
+        const code = `await (await commands.Bot().http.__session.request('POST', url=${Blockly.Python.valueToCode(block, 'URL', Blockly.Python.ORDER_NONE)}, data=${Blockly.Python.valueToCode(block, 'DATA', Blockly.Python.ORDER_NONE)})).text()`;
+        return [code, Blockly.Python.ORDER_ATOMIC];;
+    };
+
     // 定番コマンド
     window.Blockly.Blocks['pingcommand_add'] = {
         init: function() {
