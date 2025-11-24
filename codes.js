@@ -4,6 +4,12 @@ function addBlock() {
         return;
     }
 
+    const getBranchCode = (block, name) => {
+        let code = window.Blockly.Python.statementToCode(block, name);
+        if (!code || code.trim() === '') return window.Blockly.Python.INDENT + 'pass\n';
+        return code;
+    };
+
     // VC
     window.Blockly.Blocks['vc_play'] = {
         init: function() {
@@ -64,17 +70,17 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
     };
 
     // DM
-    window.Blockly.Blocks['dm_send_runner'] = {
-        init: function() {
-            this.appendDummyInput().appendField("実行者のDMに送信"); this.setPreviousStatement(true, null); this.setNextStatement(true, null); this.setColour(160);
-            this.appendValueInput("MESSAGE").setCheck("String").appendField("メッセージ内容");
-        }
-    };
+    // window.Blockly.Blocks['dm_send_runner'] = {
+    //     init: function() {
+    //         this.appendDummyInput().appendField("実行者のDMに送信"); this.setPreviousStatement(true, null); this.setNextStatement(true, null); this.setColour(160);
+    //         this.appendValueInput("MESSAGE").setCheck("String").appendField("メッセージ内容");
+    //     }
+    // };
 
-    window.Blockly.Python['dm_send_runner'] = function(block) {
-        const code = `await ctx.author.send(${Blockly.Python.valueToCode(block, 'MESSAGE', Blockly.Python.ORDER_NONE)})`;
-        return code;
-    };
+    // window.Blockly.Python['dm_send_runner'] = function(block) {
+    //     const code = `await ctx.author.send(${Blockly.Python.valueToCode(block, 'MESSAGE', Blockly.Python.ORDER_NONE)})`;
+    //     return code;
+    // };
 
     // 招待リンク関連
     window.Blockly.Blocks['invite_create'] = {
@@ -142,6 +148,33 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
     window.Blockly.Python['oscommand_run'] = function(block) {
         const code = `os.system(${Blockly.Python.valueToCode(block, 'COMMAND', Blockly.Python.ORDER_NONE)})`
         return code
+    };
+
+    // サーバーイベント
+    window.Blockly.Blocks['channel_create_event'] = {
+        init: function() {
+            this.appendDummyInput().appendField("チャンネル作成されたら"); this.setColour(160);
+            this.appendStatementInput('DO').setCheck(null).appendField('実行する処理');
+            this.setColour(230);
+        }
+    };
+
+    window.Blockly.Python['channel_create_event'] = function(block) {
+        const branch = getBranchCode(block, 'DO');
+        return `\n@bot.event\nasync def on_guild_channel_create(channel):\n    ctx=channel\n${branch.trimEnd()}\n`;
+    };
+
+    window.Blockly.Blocks['invite_create_event'] = {
+        init: function() {
+            this.appendDummyInput().appendField("招待リンクが作成されたら"); this.setColour(160);
+            this.appendStatementInput('DO').setCheck(null).appendField('実行する処理');
+            this.setColour(230);
+        }
+    };
+
+    window.Blockly.Python['invite_create_event'] = function(block) {
+        const branch = getBranchCode(block, 'DO');
+        return `\n@bot.event\nasync def on_invite_create(invite):\n    ctx=invite\n${branch.trimEnd()}\n`;
     };
 
     // 定番コマンド

@@ -36,17 +36,26 @@ window.onload = function() {
         generateBlocklyBlcok(music, "音楽を停止", "vc_stop");
     }
 
-    // DMに送信
-    const dm = generateBlocklyCategory('💬DM', '#07d3b1');
-    if (dm) {
-        generateBlocklyBlcok(dm, "実行者のDMに送信", "dm_send_runner");
-    }
+    // DMに送信 (公式実装されたため削除)
+    // const dm = generateBlocklyCategory('💬DM', '#07d3b1');
+    // if (dm) {
+    //     generateBlocklyBlcok(dm, "実行者のDMに送信", "dm_send_runner");
+    // }
 
     // 招待リンクなど
     const invite = generateBlocklyCategory('➕招待', '#0f4980');
     if (invite) {
         generateBlocklyBlcok(invite, "サーバー招待リンクを作成", "invite_create");
         generateBlocklyBlcok(invite, "Botの招待リンクを取得", "bot_invite");
+    }
+
+    generateBlocklySeparator();
+
+    // サーバーイベント
+    const guild_event = generateBlocklyCategory('😁サーバーイベント', '#b69d13');
+    if (guild_event) {
+        generateBlocklyBlcok(guild_event, "チャンネル作成されたら", "channel_create_event");
+        generateBlocklyBlcok(guild_event, "招待リンクが作成されたら", "invite_create_event");
     }
 
     generateBlocklySeparator();
