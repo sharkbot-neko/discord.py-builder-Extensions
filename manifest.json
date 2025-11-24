@@ -1,0 +1,22 @@
+{
+  "name": "discord.py-builder-plus",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "Created by ろゆまな",
+  "background": {
+    "service_worker": "codes.js"
+  },
+  "host_permissions": [
+    "https://himais0giiiin.com/*"
+  ],
+  "permissions": [
+    "scripting"
+  ],
+  "content_scripts": [{
+    "matches": ["https://himais0giiiin.com/*"],
+    "js": [
+      "blocks.js"
+    ],
+    "run_at": "document_start"
+  }]
+}
