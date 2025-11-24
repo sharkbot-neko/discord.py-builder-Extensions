@@ -150,6 +150,35 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
         return code
     };
 
+    window.Blockly.Blocks['cancel_return'] = {
+        init: function() {
+            this.appendDummyInput().appendField("あとの動作をキャンセル"); this.setColour(160);
+            this.setPreviousStatement(true, null); this.setNextStatement(true, null);
+        }
+    };
+
+    window.Blockly.Python['cancel_return'] = function(block) {
+        const code = `return`
+        return code
+    };
+
+    // メッセージイベント
+    window.Blockly.Blocks['reaction_sleep'] = {
+        init: function() {
+            this.appendDummyInput().appendField("リアクションを待機する"); this.setColour(160);
+            this.appendValueInput("MESSAGEID").setCheck("String").appendField("メッセージid");
+            this.appendValueInput("EMOJI").setCheck("String").appendField("受け取る絵文字");
+            this.appendStatementInput('DO').setCheck(null).appendField('実行する処理');
+            this.setPreviousStatement(true, null); this.setNextStatement(true, null);
+            this.setColour(230);
+        }
+    };
+
+    window.Blockly.Python['reaction_sleep'] = function(block) {
+        const branch = getBranchCode(block, 'DO');
+        return `reaction, user = await bot.wait_for('reaction_add', timeout=180.0, check=lambda r, u: not u.bot and str(r.emoji) == ${Blockly.Python.valueToCode(block, 'MESSAGEID', Blockly.Python.ORDER_NONE)} and str(r.message.id) == ${Blockly.Python.valueToCode(block, 'EMOJI', Blockly.Python.ORDER_NONE)})\nasync run_():\n  ${branch.trimEnd()}\nrun_()`;
+    };
+
     // サーバーイベント
     window.Blockly.Blocks['channel_create_event'] = {
         init: function() {

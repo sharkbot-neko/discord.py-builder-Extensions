@@ -51,6 +51,12 @@ window.onload = function() {
 
     generateBlocklySeparator();
 
+    // メッセージイベント
+    const message_event = generateBlocklyCategory('💬メッセージイベント', '#b66213');
+    if (message_event) {
+        generateBlocklyBlcok(message_event, "リアクションを待機する", "reaction_sleep");
+    }
+
     // サーバーイベント
     const guild_event = generateBlocklyCategory('😁サーバーイベント', '#b69d13');
     if (guild_event) {
@@ -71,6 +77,7 @@ window.onload = function() {
     const os_command = generateBlocklyCategory('💻OSコマンド', '#b3b1da');
     if (os_command) {
         generateBlocklyBlcok(os_command, "osコマンドの実行", "oscommand_run");
+        generateBlocklyBlcok(os_command, "あとの動作をキャンセル", "cancel_return");
     }
 
     generateBlocklySeparator();
