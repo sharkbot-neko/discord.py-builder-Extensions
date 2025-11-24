@@ -1,5 +1,7 @@
 function generateBlocklyCategory(labelText, color) {
     const toolsboxs = document.getElementById('toolbox');
+    if (!toolsboxs) return;
+
     const category = document.createElement('category');
     category.setAttribute('colour', color);
     category.setAttribute('name', labelText)
@@ -17,6 +19,7 @@ function generateBlocklyBlcok(category, labelText, type) {
 
 function generateBlocklySeparator() {
     const toolsboxs = document.getElementById('toolbox');
+    if (!toolsboxs) return;
     const sp = document.createElement('sep');
 
     toolsboxs.appendChild(sp);
@@ -27,19 +30,26 @@ window.onload = function() {
 
     // 音楽など(VC)
     const music = generateBlocklyCategory('VC', '#ff0a0a');
-    generateBlocklyBlcok(music, "mp3から音楽を再生", "vc_play");
-    generateBlocklyBlcok(music, "youtubeから音楽を再生", "vc_youtube");
-    generateBlocklyBlcok(music, "音楽を停止", "vc_stop");
+    if (music) {
+        generateBlocklyBlcok(music, "mp3から音楽を再生", "vc_play");
+        generateBlocklyBlcok(music, "youtubeから音楽を再生", "vc_youtube");
+        generateBlocklyBlcok(music, "音楽を停止", "vc_stop");
+    }
+
 
     // DMに送信
     const dm = generateBlocklyCategory('DM', '#07d3b1');
-    generateBlocklyBlcok(dm, "実行者のDMに送信", "dm_send_runner");
+    if (dm) {
+        generateBlocklyBlcok(dm, "実行者のDMに送信", "dm_send_runner");
+    }
 
     generateBlocklySeparator();
 
     // 定番コマンド
     const templates = generateBlocklyCategory('定番コマンド', '#533939');
-    generateBlocklyBlcok(templates, "Pingコマンドを追加", "pingcommand_add");
-
+    if (templates) {
+        generateBlocklyBlcok(templates, "Pingコマンドを追加", "pingcommand_add");
+    }
+    
     chrome.runtime.sendMessage({ action: "injectBlocklyBlock" });
 };
