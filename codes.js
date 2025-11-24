@@ -49,8 +49,6 @@ function addBlock() {
         const code = `@commands.command(name="ping")\nasync def ping_command(self, ctx: commands.Context):\n    await ctx.reply('Pong! {round(self.bot.latency * 1000)}ms')`;
         return code;
     };
-
-    console.log("Custom Blockly block 'test_now' injected successfully.");
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
