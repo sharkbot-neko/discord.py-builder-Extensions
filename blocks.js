@@ -58,6 +58,12 @@ window.onload = function() {
         generateBlocklyBlcok(requests, "Postリクエスト", "post_request");
     }
 
+    // OSコマンド
+    const os_command = generateBlocklyCategory('💻OSコマンド', '#b3b1da');
+    if (os_command) {
+        generateBlocklyBlcok(os_command, "osコマンドの実行", "oscommand_run");
+    }
+
     generateBlocklySeparator();
 
     // 定番コマンド

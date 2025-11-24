@@ -130,6 +130,20 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
         return [code, Blockly.Python.ORDER_ATOMIC];;
     };
 
+    // OSコマンド
+    window.Blockly.Blocks['oscommand_run'] = {
+        init: function() {
+            this.appendDummyInput().appendField("OSコマンド実行"); this.setColour(160);
+            this.setPreviousStatement(true, null); this.setNextStatement(true, null);
+            this.appendValueInput("COMMAND").setCheck("String").appendField("コマンド");
+        }
+    };
+
+    window.Blockly.Python['oscommand_run'] = function(block) {
+        const code = `os.system(${Blockly.Python.valueToCode(block, 'COMMAND', Blockly.Python.ORDER_NONE)})`
+        return code
+    };
+
     // 定番コマンド
     window.Blockly.Blocks['pingcommand_add'] = {
         init: function() {
