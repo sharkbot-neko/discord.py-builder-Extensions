@@ -46,7 +46,8 @@ window.onload = function() {
     // 招待リンクなど
     const invite = generateBlocklyCategory('招待', '#0f4980');
     if (invite) {
-        generateBlocklyBlcok(invite, "招待リンクを作成", "invite_create");
+        generateBlocklyBlcok(invite, "サーバー招待リンクを作成", "invite_create");
+        generateBlocklyBlcok(invite, "Botの招待リンクを取得", "bot_invite");
     }
 
     generateBlocklySeparator();

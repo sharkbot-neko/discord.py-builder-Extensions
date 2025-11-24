@@ -90,6 +90,18 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
         return [`${code}`, Blockly.Python.ORDER_ATOMIC];;
     };
 
+    window.Blockly.Blocks['bot_invite'] = {
+        init: function() {
+            this.appendDummyInput().appendField("Botの招待リンクを取得"); this.setColour(160);
+            this.setOutput(true, 'String');
+        }
+    };
+
+    window.Blockly.Python['bot_invite'] = function(block) {
+        const code = `f"https://discord.com/oauth2/authorize?client_id={bot.user.id}&permissions=8&integration_type=0&scope=bot+applications.commands"`;
+        return [code, Blockly.Python.ORDER_ATOMIC];;
+    };
+
     // 定番コマンド
     window.Blockly.Blocks['pingcommand_add'] = {
         init: function() {
