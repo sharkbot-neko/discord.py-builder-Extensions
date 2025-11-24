@@ -43,6 +43,12 @@ window.onload = function() {
         generateBlocklyBlcok(dm, "実行者のDMに送信", "dm_send_runner");
     }
 
+    // 招待リンクなど
+    const invite = generateBlocklyCategory('招待', '#0f4980');
+    if (invite) {
+        generateBlocklyBlcok(invite, "招待リンクを作成", "invite_create");
+    }
+
     generateBlocklySeparator();
 
     // 定番コマンド

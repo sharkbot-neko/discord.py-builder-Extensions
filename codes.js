@@ -4,6 +4,7 @@ function addBlock() {
         return;
     }
 
+    // VC
     window.Blockly.Blocks['vc_play'] = {
         init: function() {
             this.appendDummyInput().appendField("音楽を再生"); this.setPreviousStatement(true, null); this.setNextStatement(true, null); this.setColour(160);
@@ -62,6 +63,7 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
         return code;
     };
 
+    // DM
     window.Blockly.Blocks['dm_send_runner'] = {
         init: function() {
             this.appendDummyInput().appendField("実行者のDMに送信"); this.setPreviousStatement(true, null); this.setNextStatement(true, null); this.setColour(160);
@@ -74,6 +76,21 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
         return code;
     };
 
+    // 招待リンク関連
+    window.Blockly.Blocks['invite_create'] = {
+        init: function() {
+            this.appendDummyInput().appendField("招待リンクを作成"); this.setColour(160);
+            this.appendValueInput("CHANNEL_ID").setCheck("String").appendField("チャンネルID");
+            this.setOutput(true, 'String');
+        }
+    };
+
+    window.Blockly.Python['invite_create'] = function(block) {
+        const code = `(await bot.get_channel(int(${Blockly.Python.valueToCode(block, 'CHANNEL_ID', Blockly.Python.ORDER_NONE)})).create_invite()).url`;
+        return [`${code}`, Blockly.Python.ORDER_ATOMIC];;
+    };
+
+    // 定番コマンド
     window.Blockly.Blocks['pingcommand_add'] = {
         init: function() {
             this.appendDummyInput().appendField("Pingコマンドを追加"); this.setPreviousStatement(true, null); this.setNextStatement(true, null); this.setColour(160);
