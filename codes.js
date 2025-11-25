@@ -118,7 +118,7 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
     };
 
     window.Blockly.Python['get_request'] = function(block) {
-        const code = `await (await commands.Bot().http.__session.request('GET', url=${Blockly.Python.valueToCode(block, 'URL', Blockly.Python.ORDER_NONE)}).text()`;
+        const code = `await (await bot.http.__session.request('GET', url=${Blockly.Python.valueToCode(block, 'URL', Blockly.Python.ORDER_NONE)}).text()`;
         return [code, Blockly.Python.ORDER_ATOMIC];;
     };
 
@@ -132,7 +132,7 @@ voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else 
     };
 
     window.Blockly.Python['post_request'] = function(block) {
-        const code = `await (await commands.Bot().http.__session.request('POST', url=${Blockly.Python.valueToCode(block, 'URL', Blockly.Python.ORDER_NONE)}, data=${Blockly.Python.valueToCode(block, 'DATA', Blockly.Python.ORDER_NONE)})).text()`;
+        const code = `await (await bot.http.__session.request('POST', url=${Blockly.Python.valueToCode(block, 'URL', Blockly.Python.ORDER_NONE)}, data=${Blockly.Python.valueToCode(block, 'DATA', Blockly.Python.ORDER_NONE)})).text()`;
         return [code, Blockly.Python.ORDER_ATOMIC];;
     };
 
